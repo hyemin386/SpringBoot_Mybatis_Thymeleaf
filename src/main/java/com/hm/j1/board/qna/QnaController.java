@@ -1,0 +1,22 @@
+package com.hm.j1.board.qna;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/qna/**")
+public class QnaController {
+	
+	@ModelAttribute("board") //속성의 이름 
+	public String getBoard() {
+		return "qna"; //value 값, 객체
+	}
+
+	@GetMapping("list")
+	public String getList() throws Exception {
+		return "board/list";
+	}
+	
+}
