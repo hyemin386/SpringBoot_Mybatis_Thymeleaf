@@ -19,7 +19,6 @@ public class HomeController {
 		BoardVO boardVO = new BoardVO();
 		boardVO.setNum(1L);
 		boardVO.setTitle("title");
-		boardVO.setWriter("writer");
 		
 		System.out.println(boardVO.toString());
 		return "index";

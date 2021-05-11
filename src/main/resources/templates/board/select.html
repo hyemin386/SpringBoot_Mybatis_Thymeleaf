@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="./fragments/default :: head(${board}+'Select')">
+<meta charset="UTF-8">
+<title> </title>
+</head>
+<body>
+	<div th:replace="./fragments/default :: header"></div>
+	<div th:replace="./fragments/default :: jumbo"></div>
+
+	<div class="container">
+		<h2 th:text="${board}"></h2>
+		<br>
+		<h4 th:text="${vo.title}"></h4>
+		<h4 th:text="${vo.contents}"></h4>
+	</div>
+
+	<footer th:replace="./fragments/default :: footer"></footer>
+</body>
+</html>
