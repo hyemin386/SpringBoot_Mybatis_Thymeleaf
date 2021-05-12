@@ -10,7 +10,7 @@
 
 	<div class="container">
 		<h2 th:text="${board}"></h2>
-		
+
 		<table class="table">
 			<thead class="thead-dark">
 				<tr>
@@ -32,9 +32,11 @@
 			<tbody>
 				<tr th:each="vo, state : ${list}">
 					<th scope="row" th:text="${vo.num}"></th>
-											<!-- @{ |${board}select| } board의 종류별로 주소창이 바뀌게 쓰기-->
-											<!-- parameter 전송 @{URL주소(파라미터명=값, 파라미터명2=값2 ...)} -->
-					<td><a href="#" th:href="@{select(num=${vo.num})}" th:text="${vo.title}">Mark</a></td> <!-- td태그 안에 a가 들어가야함 -->
+					<!-- @{ |${board}select| } board의 종류별로 주소창이 바뀌게 쓰기-->
+					<!-- parameter 전송 @{URL주소(파라미터명=값, 파라미터명2=값2 ...)} -->
+					<td><a href="#" th:href="@{select(num=${vo.num})}"
+						th:text="${vo.title}">Mark</a></td>
+					<!-- td태그 안에 a가 들어가야함 -->
 					<td th:text="${vo.writer}">Otto</td>
 					<td th:text="${vo.regDate}">@mdo</td>
 					<td th:text="${vo.hit}"></td>
@@ -46,11 +48,25 @@
 					<td th:text="${state.first}"></td> 현재 반복이 첫번째인지 여부
 					<td th:text="${state.last}"></td> 현재 반복이 마지막인지 여부
 					<td th:text="${state.current}"></td> 현재 요소  -->
-				</tr>				
+				</tr>
 			</tbody>
 		</table>
-		
-		<a href="#" class="btn btn-info" th:href="@{./insert}">WRITE</a>		
+
+		<a href="#" class="btn btn-info" th:href="@{./insert}">WRITE</a>
+	</div>
+
+	<div class="container d-flex justify-content-center">
+		<ul class="pagination">
+		<!-- if문 -->
+			<li th:if="${pager.pre}" th:classappend="${pager.pre?}" class="page-item"><a class="page-link" href="#" th:href="@{./list(curPage=${pager.startNum-1})}">Previous</a></li>
+			<li class="page-item" th:each="i : ${#numbers.sequence(pager.startNum, pager.lastNum)}"><a class="page-link" href="#" th:text="${i}" th:href="@{./list(curPage=${i})}">Previous</a></li>
+			<li th:if="${pager.next}" class="page-item"><a class="page-link" href="#" th:href="@{./list(curPage=${pager.lastNum+1})}">Next</a></li>
+		<!-- if else문 
+			<li th:classappend="${pager.pre? 'disable':'active'}" class="page-item">
+			<a th:if="${pager.pre}" class="page-link" href="#" th:href="@{./list(curPage=${pager.startNum-1})}">Previous</a>
+			unless -> else임
+			<span th:unless="${pager.pre}" class="page-link">Previous</span></li> -->
+		</ul>
 	</div>
 
 	<footer th:replace="./fragments/default :: footer"></footer>

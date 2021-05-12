@@ -29,7 +29,7 @@ class NoticeMapperTest {
 		System.out.println("Finish");
 	}
 	
-	//@Test
+	/*@Test
 	void getListTest() throws Exception {
 		List<BoardVO> ar = noticeMapper.getList();
 		for(BoardVO boardVO : ar) {
@@ -38,6 +38,6 @@ class NoticeMapperTest {
 		
 		System.out.println(ar.size());
 		assertNotEquals(0, ar.size());
-	}
+	} */
 
 }

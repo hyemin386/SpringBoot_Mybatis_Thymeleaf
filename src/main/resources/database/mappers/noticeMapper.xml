@@ -5,8 +5,14 @@
 
 <mapper namespace="com.hm.j1.board.notice.NoticeMapper">
 
-	<select id="getList" resultType="NoticeVO">
+	<select id="getList" resultType="NoticeVO" parameterType="Pager">
 		select * from notice order by num desc
+		limit #{startRow}, #{perPage}
+		<!-- limit 시작인덱스번호(0부터 시작) , 개수-->
+	</select>
+	
+	<select id="getTotalCount" parameterType="Pager" resultType="java.lang.Long">
+		select count(num) from notice
 	</select>
 	
 	<select id="getSelect" parameterType="BoardVO" resultType="NoticeVO">
