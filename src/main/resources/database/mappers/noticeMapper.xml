@@ -5,14 +5,34 @@
 
 <mapper namespace="com.hm.j1.board.notice.NoticeMapper">
 
+	<sql id="searcher"> <!-- 공통으로 사용하는 코드(sql) 모음 -->
+		<where>
+			<choose>
+				<when test="kind=='Writer'">
+					writer like concat('%', #{search}, '%')
+				</when>
+				
+				<when test="kind=='contents'">
+					contents like concat('%', #{search}, '%')
+				</when>
+				<otherwise>
+					title like concat('%', #{search}, '%')
+				</otherwise>
+			</choose>
+		</where>
+	</sql>
+	
 	<select id="getList" resultType="NoticeVO" parameterType="Pager">
-		select * from notice order by num desc
+		select * from notice 
+		<include refid="searcher"></include> <!-- 위의 sql 참조하기 -->
+		order by num desc
 		limit #{startRow}, #{perPage}
 		<!-- limit 시작인덱스번호(0부터 시작) , 개수-->
 	</select>
 	
 	<select id="getTotalCount" parameterType="Pager" resultType="java.lang.Long">
 		select count(num) from notice
+		<include refid="searcher"></include>
 	</select>
 	
 	<select id="getSelect" parameterType="BoardVO" resultType="NoticeVO">
