@@ -19,14 +19,14 @@
 					<th scope="col">WRITER</th>
 					<th scope="col">DATE</th>
 					<th scope="col">HIT</th>
-					<th scope="col">INDEX</th>
+					<!-- <th scope="col">INDEX</th>
 					<th scope="col">COUNT</th>
 					<th scope="col">SIZE</th>
 					<th scope="col">EVEN</th>
 					<th scope="col">ODD</th>
 					<th scope="col">FIRST</th>
 					<th scope="col">LAST</th>
-					<!-- <th scope="col">CURRENT</th> -->
+					<th scope="col">CURRENT</th> -->
 				</tr>
 			</thead>
 			<tbody>
@@ -35,20 +35,22 @@
 											<!-- @{ |${board}select| } board의 종류별로 주소창이 바뀌게 쓰기-->
 											<!-- parameter 전송 @{URL주소(파라미터명=값, 파라미터명2=값2 ...)} -->
 					<td><a href="#" th:href="@{select(num=${vo.num})}" th:text="${vo.title}">Mark</a></td> <!-- td태그 안에 a가 들어가야함 -->
-					<td th:text="${vo.name}">Otto</td>
+					<td th:text="${vo.writer}">Otto</td>
 					<td th:text="${vo.regDate}">@mdo</td>
 					<td th:text="${vo.hit}"></td>
-					<td th:text="${state.index}"></td> <!-- 인덱스 번호 0부터 시작 -->
-					<td th:text="${state.count}"></td> <!-- 횟수번호 1부터 시작 -->
-					<td th:text="${state.size}"></td> <!-- 총 개수 -->
-					<td th:text="${state.even}"></td> <!-- 현재 반복의 짝수 여부 -->
-					<td th:text="${state.odd}"></td> <!-- 현재 반복의 홀수 여부 -->
-					<td th:text="${state.first}"></td> <!-- 현재 반복이 첫번째인지 여부 -->
-					<td th:text="${state.last}"></td> <!-- 현재 반복이 마지막인지 여부 -->
-					<!-- <td th:text="${state.current}"></td> 현재 요소 -->
+					<!-- <td th:text="${state.index}"></td> 인덱스 번호 0부터 시작
+					<td th:text="${state.count}"></td> 횟수번호 1부터 시작
+					<td th:text="${state.size}"></td> 총 개수
+					<td th:text="${state.even}"></td> 현재 반복의 짝수 여부
+					<td th:text="${state.odd}"></td> 현재 반복의 홀수 여부
+					<td th:text="${state.first}"></td> 현재 반복이 첫번째인지 여부
+					<td th:text="${state.last}"></td> 현재 반복이 마지막인지 여부
+					<td th:text="${state.current}"></td> 현재 요소  -->
 				</tr>				
 			</tbody>
-		</table>		
+		</table>
+		
+		<a href="#" class="btn btn-info" th:href="@{./insert}">WRITE</a>		
 	</div>
 
 	<footer th:replace="./fragments/default :: footer"></footer>

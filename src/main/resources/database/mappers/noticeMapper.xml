@@ -12,5 +12,8 @@
 	<select id="getSelect" parameterType="BoardVO" resultType="NoticeVO">
 		select * from notice where num=#{num}
 	</select>
-
+	
+	<insert id="setInsert" parameterType="BoardVO">
+		insert into notice values (#{num},#{title},#{writer},#{contents},now(),0)
+	</insert>
 </mapper>

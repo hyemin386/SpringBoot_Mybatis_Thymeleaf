@@ -17,6 +17,19 @@ class NoticeMapperTest {
 	private NoticeMapper noticeMapper;
 	
 	@Test
+	void setInsertTest() throws Exception {
+		for(int i=5;i<106;i++) {
+			BoardVO boardVO = new BoardVO();
+			boardVO.setTitle("title"+i);
+			boardVO.setContents("contents"+i);
+			boardVO.setWriter("writer"+i);
+			noticeMapper.setInsert(boardVO);
+			Thread.sleep(500);
+		}
+		System.out.println("Finish");
+	}
+	
+	//@Test
 	void getListTest() throws Exception {
 		List<BoardVO> ar = noticeMapper.getList();
 		for(BoardVO boardVO : ar) {
