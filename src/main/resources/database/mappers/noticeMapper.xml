@@ -6,14 +6,11 @@
 <mapper namespace="com.hm.j1.board.notice.NoticeMapper">
 
 	<select id="getList" resultType="NoticeVO">
-		select * from
-		(select rownum R, N.* from
-		(select * from notice order by num desc) N )
-		where R between 1 and 10
+		select * from notice order by num desc
 	</select>
 	
 	<select id="getSelect" parameterType="BoardVO" resultType="NoticeVO">
 		select * from notice where num=#{num}
 	</select>
-	
+
 </mapper>
