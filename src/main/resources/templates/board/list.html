@@ -78,21 +78,28 @@
 
 	<div class="container d-flex justify-content-center">
 		<ul class="pagination">
-			<!-- if문 -->
-			<li th:if="${pager.pre}" th:classappend="${pager.pre?}" class="page-item">
+			<!-- if문으로 작성시-->
+			<li th:if="${pager.pre}" class="page-item">
 			<a class="page-link pager" href="#" th:title="${pager.startNum-1}">Previous</a></li>
 			<li class="page-item" th:each="i : ${#numbers.sequence(pager.startNum, pager.lastNum)}">
 			<a class="page-link pager" href="#" th:text="${i}" th:title="${i}">Previous</a></li>
 			<li th:if="${pager.next}" class="page-item">
-			<a class="page-link pager" href="#" th:title="${pager.lastNum+1}">Next</a></li>
-			<!-- if else문 
-			<li th:classappend="${pager.pre? 'disable':'active'}" class="page-item">
-			<a th:if="${pager.pre}" class="page-link" href="#" th:href="@{./list(curPage=${pager.startNum-1})}">Previous</a>
-			unless -> else임
-			<span th:unless="${pager.pre}" class="page-link">Previous</span></li> -->
+			<a class="page-link pager" href="#" th:title="${pager.lastNum+1}">Next</a></li> 
+			
+			<!-- if else문으로 작성시
+			<li th:classappend="${pager.pre? 'disable':'active'}"  class="page-item">
+		  	<a th:if="${pager.pre}" class="page-link pager" href="#" th:title="${pager.startNum-1}">Previous</a>
+			<!-- unless -> else임 
+			<span th:unless="${pager.pre}" class="page-link">Previous</span></li>
+			<li class="page-item" th:each="i : ${#numbers.sequence(pager.startNum, pager.lastNum)}">
+			<a class="page-link pager" href="#" th:text="${i}" th:title="${i}" >Previous</a></li>
+		    <li th:if="${pager.next}" class="page-item">
+		    <a class="page-link pager" href="#" th:title="${pager.lastNum+1}">Next</a></li>  -->
 		</ul>
 	</div>
 
 	<footer th:replace="./fragments/default :: footer"></footer>
+	
+<script type="text/javascript" th:src="@{/js/boardSearch.js}"></script>
 </body>
 </html>
