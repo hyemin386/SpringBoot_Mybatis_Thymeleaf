@@ -45,14 +45,36 @@ public class NoticeController {
 	}
 	
 	@GetMapping("insert")
-	public String setInsert() throws Exception {
-		return "board/insert";
+	public String setInsert(Model model) throws Exception {
+		model.addAttribute("vo", new BoardVO());
+		model.addAttribute("action", "insert");
+		return "board/form";
 	}
 	
 	@PostMapping("insert")
 	public String setInsert(BoardVO boardVO) throws Exception {
 		int result = noticeService.setInsert(boardVO);
 		
+		return "redirect:./list";
+	}
+	
+	@GetMapping("update")
+	public String setUpdate(BoardVO boardVO, Model model) throws Exception {
+		boardVO = noticeService.getSelect(boardVO);
+		model.addAttribute("vo", boardVO);	
+		model.addAttribute("action", "update");
+		return "board/form";
+	}
+	
+	@PostMapping("update")
+	public String setUpdate(BoardVO boardVO) throws Exception {
+		int result = noticeService.setUpdate(boardVO);
+		return "redirect:./list";
+	}
+	
+	@GetMapping("delete")
+	public String setDelete(BoardVO boardVO) throws Exception {
+		int result = noticeService.setDelete(boardVO);
 		return "redirect:./list";
 	}
 	

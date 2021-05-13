@@ -14,7 +14,12 @@
 		<h4 th:text="${vo.title}"></h4>
 		<h4 th:text="${vo.contents}"></h4>
 	</div>
-
+	
+	<div class="container">
+	<a href="#" class="btn btn-info" th:href="@{./update(num=${vo.num})}">Update</a>
+	<a href="#" class="btn btn-info" th:href="@{./delete(num=${vo.num})}">Delete</a>
+	</div>
+	
 	<footer th:replace="./fragments/default :: footer"></footer>
 </body>
 </html>
