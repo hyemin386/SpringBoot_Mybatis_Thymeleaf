@@ -35,10 +35,24 @@
 		<include refid="searcher"></include>
 	</select>
 	
-	<select id="getSelect" parameterType="BoardVO" resultType="NoticeVO">
-		select * from notice where num=#{num}
+	<select id="getSelect" parameterType="BoardVO" resultMap="select">
+		select N.*, NF.* from notice N left join noticeFiles NF on N.num = NF.num where N.num=#{num}
 	</select>
 	
+	<resultMap type="NoticeVO" id="select">
+		<id property="num" column="num"/>
+		<result property="writer" column="writer"/>
+		<result property="title" column="title"/>
+		<result property="contents" column="contents"/>
+		<result property="regDate" column="regDate"/>
+		<result property="hit" column="hit"/>
+		<collection property="files" javaType="java.util.List" ofType="BoardFileVO">
+			<id property="fileNum" column="fileNum"></id>
+			<result property="fileName" column="fileName"/>
+			<result property="oriName" column="oriName"/>
+		</collection>
+	</resultMap>
+
 	<update id="setHitUpdate" parameterType="BoardVO">
 		update notice set hit=hit+1 where num=#{num}
 	</update>

@@ -14,11 +14,14 @@
 		<h4 th:text="${vo.title}"></h4>
 		<h4 th:utext="${vo.contents}"></h4> 
 		<!-- utext: html문법을 적용한 텍스트 summernote 사용시 p태그가 함께 보이는것을 방지!-->
+		<p th:each="fileVO : ${vo.files}">
+			<a th:href="@{|/upload/${board}/${fileVO.fileName}|}" th:text="${fileVO.oriName}"></a>
+		</p>
 	</div>
-	
+		
 	<div class="container">
-	<a href="#" class="btn btn-info" th:href="@{./update(num=${vo.num})}">Update</a>
-	<a href="#" class="btn btn-info" th:href="@{./delete(num=${vo.num})}">Delete</a>
+		<a href="#" class="btn btn-info" th:href="@{./update(num=${vo.num})}">Update</a>
+		<a href="#" class="btn btn-info" th:href="@{./delete(num=${vo.num})}">Delete</a>
 	</div>
 	
 	<footer th:replace="./fragments/default :: footer"></footer>
