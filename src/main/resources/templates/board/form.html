@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="./fragments/default :: head(${board}+'Update')">
+<head th:replace="./fragments/summernote :: head(${board}+'Update')">
 <meta charset="UTF-8">
 <title> </title>
 </head>
@@ -13,7 +13,13 @@
 			<!-- boardForm의 fragment 가져올 곳 -->
 		</div>
 	</div>
-
+ 
 	<footer th:replace="./fragments/default :: footer"></footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script type="text/javascript">
+	$("#contents").summernote(); /* content영역에 summernote 적용 */
+</script>
 </body>
 </html>

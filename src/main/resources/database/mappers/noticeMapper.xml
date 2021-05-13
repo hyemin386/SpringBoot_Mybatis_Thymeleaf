@@ -43,8 +43,12 @@
 		update notice set hit=hit+1 where num=#{num}
 	</update>
 	
-	<insert id="setInsert" parameterType="BoardVO">
+	<insert id="setInsert" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="num">
 		insert into notice values (#{num},#{title},#{writer},#{contents},now(),0)
+	</insert>
+	
+	<insert id="setFileInsert" parameterType="BoardFileVO">
+		insert into noticeFiles (num, fileName, oriName) values (#{num}, #{fileName}, #{oriName})
 	</insert>
 	
 	<update id="setUpdate" parameterType="BoardVO">

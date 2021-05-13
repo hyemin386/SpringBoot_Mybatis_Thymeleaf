@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.hm.j1.board.BoardFileVO;
 import com.hm.j1.board.BoardService;
 import com.hm.j1.board.BoardVO;
+import com.hm.j1.util.FileManager;
 import com.hm.j1.util.Pager;
 
 @Service
@@ -14,6 +17,8 @@ public class NoticeService implements BoardService {
 
 	@Autowired
 	private NoticeMapper noticeMapper;
+	@Autowired
+	private FileManager fileManager;
 	
 	@Override
 	public List<BoardVO> getList(Pager pager) throws Exception {
@@ -32,9 +37,24 @@ public class NoticeService implements BoardService {
 	}
 
 	@Override
-	public int setInsert(BoardVO boardVO) throws Exception {
+	public int setInsert(BoardVO boardVO, MultipartFile [] files) throws Exception {
 		// TODO Auto-generated method stub
-		return noticeMapper.setInsert(boardVO);
+		int result = noticeMapper.setInsert(boardVO);
+		
+		String filePath ="upload/notice/";
+		for(MultipartFile multipartFile:files) {
+			if(multipartFile.getSize()==0) {
+				continue;
+			}
+			String fileName = fileManager.save(multipartFile, filePath);
+			System.out.println(fileName);
+			BoardFileVO boardFileVO = new BoardFileVO();
+			boardFileVO.setFileName(fileName);
+			boardFileVO.setOriName(multipartFile.getOriginalFilename());
+			boardFileVO.setNum(boardVO.getNum());
+			noticeMapper.setFileInsert(boardFileVO);
+		}			
+		return result;
 	}
 
 	@Override

@@ -18,6 +18,9 @@ public interface BoardMapper {
 	//insert
 	public int setInsert(BoardVO boardVO) throws Exception;
 	
+	//fileInsert
+	public int setFileInsert(BoardFileVO boardFileVO) throws Exception;
+	
 	//update
 	public int setUpdate(BoardVO boardVO) throws Exception;
 	

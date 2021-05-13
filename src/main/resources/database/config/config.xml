@@ -6,6 +6,7 @@
   <configuration>
   	<typeAliases>
   		<typeAlias type="com.hm.j1.board.BoardVO" alias="BoardVO"/>
+  		<typeAlias type="com.hm.j1.board.BoardFileVO" alias="BoardFileVO"/>
   		<typeAlias type="com.hm.j1.board.notice.NoticeVO" alias="NoticeVO"/>
   		<typeAlias type="com.hm.j1.util.Pager" alias="Pager"/>
   	</typeAliases>
