@@ -15,7 +15,8 @@
 		<h4 th:utext="${vo.contents}"></h4> 
 		<!-- utext: html문법을 적용한 텍스트 summernote 사용시 p태그가 함께 보이는것을 방지!-->
 		<p th:each="fileVO : ${vo.files}">
-			<a th:href="@{|/upload/${board}/${fileVO.fileName}|}" th:text="${fileVO.oriName}"></a>
+			<!-- <a th:href="@{|/upload/${board}/${fileVO.fileName}|}" th:text="${fileVO.oriName}"></a> -->
+			<a th:href="@{./fileDown(fileName=${fileVO.fileName}, oriName=${fileVO.oriName})}" th:text="${fileVO.oriName}"></a>
 		</p>
 	</div>
 		

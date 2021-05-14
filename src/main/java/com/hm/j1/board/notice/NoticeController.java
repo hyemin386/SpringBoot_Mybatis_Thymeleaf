@@ -36,6 +36,16 @@ public class NoticeController {
 		return "board/list";
 	}
 	
+	@GetMapping("fileDown")
+	public ModelAndView fileDown(String fileName, String oriName) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("fileName", fileName);
+		mv.addObject("oriName", oriName);
+		mv.addObject("filePath", "upload/notice");
+		mv.setViewName("fileDown");
+		return mv;
+	}
+	
 	@GetMapping("select")
 	public ModelAndView getSelect(BoardVO boardVO) throws Exception {
 		ModelAndView mv = new ModelAndView();
