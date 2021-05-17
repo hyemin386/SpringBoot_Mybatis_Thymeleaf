@@ -7,7 +7,21 @@
 <body>
 	<div th:replace="./fragments/default :: header"></div>
 	<div th:replace="./fragments/default :: jumbo"></div>
-	<h1>Member Login Page</h1>
+
+	<div class="container">
+		<form id="login" action="#" th:action="@{./login}" method="post">
+			<div class="form-group">
+				<label for="id">ID </label> 
+				<input type="text" class="form-control" id="userName" name="userName">
+			</div>
+			<div class="form-group">
+				<label for="pw">PASSWORD</label> 
+				<input type="password" class="form-control" id="password" name="password">
+			</div>
+			<button type="submit" class="btn btn-primary">LOGIN</button>
+		</form>
+	</div>
+
 	<footer th:replace="./fragments/default :: footer"></footer>
 </body>
 </html>
