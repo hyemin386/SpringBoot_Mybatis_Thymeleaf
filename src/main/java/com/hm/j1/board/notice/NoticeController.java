@@ -67,7 +67,12 @@ public class NoticeController {
 		//admin이 아닌데 주소창으로 들어와서 insert하려는 경우를 방지하기 위함
 		Object obj = session.getAttribute("member");
 		MemberVO memberVO = null;
-		String path ="redirect:/member/login"; //admin이 아니라면 로그인 창으로
+			
+		//common result 사용하기 위함
+		String path ="common/result";
+		model.addAttribute("msg", "관리자가 아닙니다"); 
+		model.addAttribute("path", "./list");
+		
 		if(obj instanceof MemberVO) { // if(obj != null)
 			memberVO = (MemberVO)obj;
 			if(memberVO.getUserName().equals("admin")) {
