@@ -77,8 +77,11 @@
 				</tr>
 			</tbody>
 		</table>
-		<a href="#" class="btn btn-info" th:href="@{./fileDown}">FILE DOWN</a>
-		<a href="#" class="btn btn-info" th:href="@{./insert}">WRITE</a>
+		<div th:if="${session.member != null}"> <!-- notice일때만 admin write 적용 -->
+			<a href="#" class="btn btn-info" th:href="@{./fileDown}">FILE DOWN</a>
+			<a href="#" class="btn btn-info" th:if="${board == 'notice' and session.member.userName == 'admin'}" th:href="@{./insert}">WRITE</a>
+			<a href="#" class="btn btn-info" th:if="${board != 'notice'}" th:href="@{./insert}">WRITE</a>
+		</div>
 	</div>
 
 	<div class="container d-flex justify-content-center">

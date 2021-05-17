@@ -2,6 +2,8 @@ package com.hm.j1.board.notice;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hm.j1.board.BoardVO;
+import com.hm.j1.member.MemberVO;
 import com.hm.j1.util.Pager;
 
 @Controller
@@ -57,10 +60,21 @@ public class NoticeController {
 	}
 	
 	@GetMapping("insert")
-	public String setInsert(Model model) throws Exception {
+	public String setInsert(Model model, HttpSession session) throws Exception {
 		model.addAttribute("vo", new BoardVO());
 		model.addAttribute("action", "insert");
-		return "board/form";
+		
+		//admin이 아닌데 주소창으로 들어와서 insert하려는 경우를 방지하기 위함
+		Object obj = session.getAttribute("member");
+		MemberVO memberVO = null;
+		String path ="redirect:/member/login"; //admin이 아니라면 로그인 창으로
+		if(obj instanceof MemberVO) { // if(obj != null)
+			memberVO = (MemberVO)obj;
+			if(memberVO.getUserName().equals("admin")) {
+				path ="board/form"; //admin이라면 form으로 
+			}
+		}
+		return path;
 	}
 	
 	@PostMapping("insert")
