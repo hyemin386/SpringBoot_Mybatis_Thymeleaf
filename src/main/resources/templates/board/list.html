@@ -11,7 +11,7 @@
 	<div class="container">
 		<h2 th:text="${board}"></h2>
 
-		<!-- 검색 form -->
+ 		<!-- 검색 form -->
 		<div class=" d-flex justify-content-start">
 			<div class="input-group align-items-center">
 				<form id="frm" th:action="@{list}" class="form-inline">
@@ -55,9 +55,14 @@
 					<th scope="row" th:text="${vo.num}"></th>
 					<!-- @{ |${board}select| } board의 종류별로 주소창이 바뀌게 쓰기-->
 					<!-- parameter 전송 @{URL주소(파라미터명=값, 파라미터명2=값2 ...)} -->
-					<td><a href="#" th:href="@{select(num=${vo.num})}"
-						th:text="${vo.title}">Mark</a></td>
-					<!-- td태그 안에 a가 들어가야함 -->
+					<td th:if="${board != 'notice'}">
+						<!-- qna에서만 보임! -->
+						<span th:if="${vo.depth != 0}" th:each="i : ${#numbers.sequence(1, vo.depth)}">--</span>
+						<a href="#" th:href="@{select(num=${vo.num})}" th:text="${vo.title}">Mark</a>
+					</td> <!-- td태그 안에 a가 들어가야함 -->			
+					<td th:unless="${board != 'notice'}">
+						<a href="#" th:href="@{select(num=${vo.num})}" th:text="${vo.title}">Mark</a>			
+					</td>
 					<td th:text="${vo.writer}">Otto</td>
 					<td th:text="${vo.regDate}">@mdo</td>
 					<td th:text="${vo.hit}"></td>
@@ -78,7 +83,7 @@
 
 	<div class="container d-flex justify-content-center">
 		<ul class="pagination">
-			<!-- if문으로 작성시-->
+		   <!-- if문으로 작성시  -->
 			<li th:if="${pager.pre}" class="page-item">
 			<a class="page-link pager" href="#" th:title="${pager.startNum-1}">Previous</a></li>
 			<li class="page-item" th:each="i : ${#numbers.sequence(pager.startNum, pager.lastNum)}">
