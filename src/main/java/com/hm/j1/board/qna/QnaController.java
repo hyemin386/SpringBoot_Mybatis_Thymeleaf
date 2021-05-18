@@ -2,6 +2,7 @@ package com.hm.j1.board.qna;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,11 @@ public class QnaController {
 
 	@GetMapping("list")
 	public String getList(Model model, Pager pager) throws Exception {
+		
+		if(pager.getCurPage()%2 == 0) {
+			throw new SqlSessionException();
+		}
+		
 		List<BoardVO> ar = qnaService.getList(pager);
 		model.addAttribute("list", ar);
 		model.addAttribute("pager", pager);

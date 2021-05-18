@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -107,4 +108,20 @@ public class NoticeController {
 		return "redirect:./list";
 	}
 	
+	/* @ExceptionHandler(예외객체명.class)
+	public String ex1() {
+		//코드진행
+	} */
+	
+	@ExceptionHandler(ArithmeticException.class)
+	public String getMath(Model model) {
+		model.addAttribute("message", "오류 발생했습니다");
+		return "error/500";
+	}
+	
+	@ExceptionHandler(Throwable.class)
+	public String getException (Model model) {
+		model.addAttribute("message", "관리자에게 문의해주세요");
+		return "error/500";
+	}
 }

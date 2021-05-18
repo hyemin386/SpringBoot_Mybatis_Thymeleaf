@@ -2,6 +2,7 @@ package com.hm.j1.board.notice;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,11 @@ public class NoticeService implements BoardService {
 	@Override
 	public List<BoardVO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
+		
+		/* if(pager.getCurPage()%2==0) {
+			throw new SqlSessionException();
+		} */
+	
 		pager.makeRow();
 		Long totalCount = noticeMapper.getTotalCount(pager);
 		pager.makeNum(totalCount);
@@ -43,10 +49,10 @@ public class NoticeService implements BoardService {
 		// TODO Auto-generated method stub
 		int result = noticeMapper.setInsert(boardVO);
 		
-		if(result<1) {
+		/*if(result<1) {
 			//예외는 발생하지않고 결과가 0이 나올 경우에
 			throw new Exception(); //예외 강제발생
-		}
+		}*/
 		
 		String filePath ="upload/notice/";
 		for(MultipartFile multipartFile:files) {
