@@ -20,10 +20,20 @@ public class WriterInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		//메서드 형식
+		String method = request.getMethod();
+
+		if(method.equals("GET")) {
+			this.check(request, modelAndView);
+		}
+
+	}
+
+	private void check(HttpServletRequest request, ModelAndView modelAndView) {
 		//1. 로그인 유저
 		HttpSession session = request.getSession();
 		MemberVO memberVO = (MemberVO)session.getAttribute("member");
-		
+
 		//2. 작성자 
 		BoardVO boardVO = (BoardVO)modelAndView.getModel().get("vo");
 
@@ -38,7 +48,7 @@ public class WriterInterceptor implements HandlerInterceptor {
 			modelAndView.setViewName("common/result");
 			modelAndView.addObject("msg", "로그인을 해주세요");
 			modelAndView.addObject("path", "../member/login");
-		}		
+		}	
 	}
 
 }
