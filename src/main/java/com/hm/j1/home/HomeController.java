@@ -20,6 +20,9 @@ public class HomeController {
 		boardVO.setNum(1L);
 		boardVO.setTitle("title");
 		
+		model.addAttribute("user","iu");
+		model.addAttribute("msg", "test");
+		
 		System.out.println(boardVO.toString());
 		return "index";
 	}
