@@ -11,26 +11,30 @@
 
 	<div class="container">
 		<h1>JoinPage</h1>
-		<form id="frm" action="./join" th:action="@{./join}" method="post" enctype="multipart/form-data">
+		<form id="frm" th:object="${memberVO}" action="./join" th:action="@{./join}" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="userName">USER NAME</label> 
 				<input type="text" class="form-control" id="userName" name="userName"> 
 			</div>
 			<div class="form-group">
 				<label for="password">PASSWORD</label> 
-				<input type="text" class="form-control" id="password" name="password"> 
+				<input type="text" class="form-control" id="password" name="password" th:field="*{password}"> 
+				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 			</div>
 			<div class="form-group">
 				<label for="name">NAME</label> 
-				<input type="text" class="form-control" id="name" name="name"> 
+				<input type="text" class="form-control" id="name" th:field="*{name}"> 
+				<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 			</div>
 			<div class="form-group">
 				<label for="email">EMAIL</label> 
-				<input type="text" class="form-control" id="email" name="email"> 
+				<input type="text" class="form-control" id="email" th:field="*{email}"> 
+				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 			</div>
 			<div class="form-group">
 				<label for="phone">PHONE</label> 
-				<input type="text" class="form-control" id="phone" name="phone"> 
+				<input type="text" class="form-control" id="phone" th:field="*{phone}"> 
+				<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
 			</div>
 			 <div class="form-group">
 				<label for="avatar">File</label> 

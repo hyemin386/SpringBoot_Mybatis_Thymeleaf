@@ -1,11 +1,15 @@
 package com.hm.j1.member;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,20 +23,24 @@ public class MemberController {
 	private MemberService memberService;
 	
 	//회원가입
-	@GetMapping("join")
-	public String memberJoin() throws Exception {
+	@GetMapping("join")      //model에 memberVO객체를 넣는것이랑 똑같은 역할
+	public String memberJoin(@ModelAttribute MemberVO memberVO) throws Exception {
 		return "member/memberJoin";
 	}
 	
 	@PostMapping("join")
-	public String setJoin(MemberVO memberVO, MultipartFile avatar)throws Exception{
-		int result = memberService.memberJoin(memberVO, avatar);
+	public String setJoin(@Valid MemberVO memberVO, Errors errors, MultipartFile avatar)throws Exception{
+		
+		if(errors != null && errors.getErrorCount()>0) {
+			return "member/memberJoin";
+		}
+		//int result = memberService.memberJoin(memberVO, avatar);
 		
 		return "redirect:../";
 	}
 	
 	//로그인
-	@GetMapping("login")
+	@GetMapping("login")      
 	public String memberLogin() throws Exception {
 		return "member/memberLogin";
 	}
