@@ -34,6 +34,13 @@ public class MemberService {
 			result = true;
 		}
 		
+		//UserName 중복 여부 검증
+		MemberVO checkMember = memberMapper.getUsertName(memberVO);
+		if(checkMember != null) {
+			errors.rejectValue("userName", "member.id.equal");
+			result = true;
+		}
+		
 		return result;
 	}
 	

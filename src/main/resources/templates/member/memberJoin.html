@@ -14,7 +14,8 @@
 		<form id="frm" th:object="${memberVO}" action="./join" th:action="@{./join}" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="userName">USER NAME</label> 
-				<input type="text" class="form-control" id="userName" name="userName"> 
+				<input type="text" class="form-control" id="userName" name="userName" th:field="*{userName}"> 
+				<p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
 			</div>
 			<div class="form-group">
 				<label for="password">PASSWORD</label> 

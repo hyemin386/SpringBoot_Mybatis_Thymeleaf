@@ -13,4 +13,7 @@ public interface MemberMapper {
 	
 	//login
 	public MemberVO memberLogin(MemberVO memberVO) throws Exception;
+	
+	//id 중복확인
+	public MemberVO getUsertName(MemberVO memberVO) throws Exception;
 }
