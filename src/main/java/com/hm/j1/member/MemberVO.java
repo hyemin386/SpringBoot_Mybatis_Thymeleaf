@@ -10,10 +10,11 @@ import lombok.Data;
 public class MemberVO {
 
 	private String userName;
+	private String password1; //pw 입력
 	
 	@Length(min=0, max=6)
-	private String password;
-	
+	private String password; //확인 pw
+		
 	@NotEmpty
 	private String name;
 	

@@ -31,7 +31,12 @@ public class MemberController {
 	@PostMapping("join")
 	public String setJoin(@Valid MemberVO memberVO, Errors errors, MultipartFile avatar)throws Exception{
 		
-		if(errors != null && errors.getErrorCount()>0) {
+		/* 기본검증
+		    if(errors.hasErrors()) {
+			return "member/memberJoin";
+		} */
+		
+		if(memberService.memberError(memberVO, errors)) {
 			return "member/memberJoin";
 		}
 		//int result = memberService.memberJoin(memberVO, avatar);

@@ -18,7 +18,12 @@
 			</div>
 			<div class="form-group">
 				<label for="password">PASSWORD</label> 
-				<input type="text" class="form-control" id="password" name="password" th:field="*{password}"> 
+				<input type="text" class="form-control" id="password" name="password1" th:field="*{password1}"> 
+				<p th:if="${#fields.hasErrors('password1')}" th:errors="*{password1}"></p>
+			</div>
+			<div class="form-group">
+				<label for="password">PASSWORD</label> 
+				<input type="text" class="form-control" id="password2" name="password" th:field="*{password}"> 
 				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 			</div>
 			<div class="form-group">
