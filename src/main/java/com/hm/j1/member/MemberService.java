@@ -1,6 +1,10 @@
 package com.hm.j1.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -10,12 +14,26 @@ import com.hm.j1.board.BoardFileVO;
 import com.hm.j1.util.FileManager;
 
 @Service
-public class MemberService {
+//Spring security에서 사용하는 service
+//UserDetailsService 구현
+public class MemberService implements UserDetailsService {
 
 	@Autowired
 	private MemberMapper memberMapper;
 	@Autowired
-	private FileManager fileManager;
+	private FileManager fileManager;	
+	@Autowired
+	private PasswordEncoder passwordEncoder; //pw 암호화 시켜주는 역할
+	
+	//login 메서드
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUserName(username);
+		memberVO = memberMapper.memberLogin(memberVO);
+		
+		return memberVO;
+	}
 	
 	//비밀번호 검증 메서드생성하기
 	public boolean memberError(MemberVO memberVO, Errors errors) throws Exception {
@@ -45,6 +63,12 @@ public class MemberService {
 	}
 	
 	public int memberJoin(MemberVO memberVO, MultipartFile multipartFile) throws Exception {
+		//0. 사전작업 (패스워드 암호화 및 사용자계정 활성화)
+		//패스워드 암호화
+		memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
+		//사용자 계정 활성화
+		memberVO.setEnabled(true);
+		
 		//1. Member 테이블에 저장
 		int result = memberMapper.memberJoin(memberVO);
 		//2. HDD에 저장
@@ -55,7 +79,7 @@ public class MemberService {
 			MemberFileVO memberFileVO = new MemberFileVO();
 			memberFileVO.setFileName(fileName);
 			memberFileVO.setOriName(multipartFile.getOriginalFilename());
-			memberFileVO.setUserName(memberVO.getUserName());
+			memberFileVO.setUserName(memberVO.getUsername());
 		//3. MemberFiles table 저장
 			result = memberMapper.memberJoinFile(memberFileVO);
 		}
@@ -63,7 +87,7 @@ public class MemberService {
 		return result;
 	}
 	
-	public MemberVO memberLogin(MemberVO memberVO) throws Exception {
+	/*public MemberVO memberLogin(MemberVO memberVO) throws Exception {
 		return memberMapper.memberLogin(memberVO);
-	}
+	}*/
 }
