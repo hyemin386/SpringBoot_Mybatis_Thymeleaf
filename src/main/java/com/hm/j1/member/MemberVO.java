@@ -34,7 +34,7 @@ public class MemberVO implements UserDetails {
 	@NotEmpty
 	private String phone;
 	
-	private Boolean enabled;
+	private boolean enabled;
 
 	//Role
 	private List<RoleVO> roles;
