@@ -9,10 +9,13 @@
 	<div th:replace="./fragments/default :: jumbo"></div>
 
 	<div class="container">
-		<form id="login" action="#" th:action="@{./login}" method="post">
+		<!-- 기본 내장되어있는 에러 메세지 출력하기 -->
+		<h3 th:if="${param.error}">Login Fail</h3>
+	
+		<form id="login" action="./login" th:action="@{./login}" method="post">
 			<div class="form-group">
 				<label for="id">ID </label> 
-				<input type="text" class="form-control" id="userName" name="userName">
+				<input type="text" class="form-control" id="userName" name="username">
 			</div>
 			<div class="form-group">
 				<label for="pw">PASSWORD</label> 

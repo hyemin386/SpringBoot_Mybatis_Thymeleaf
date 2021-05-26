@@ -34,6 +34,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// 로그인, 권한 설정
 		http
+		//권한 에러 발생시 처리(403)
+		.exceptionHandling()
+			.accessDeniedPage(null) //에러페이지 경로작성
+			.accessDeniedHandler(null) //에러처리 class
+			.and()
 		.cors().and()
 		.csrf().disable()
 		.authorizeRequests()
@@ -48,9 +53,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 		.formLogin()
 			.loginPage("/member/login")
-			.defaultSuccessUrl("/member/memberLoginResult") //로그인 성공 후 전송할 url
+			.defaultSuccessUrl("/member/memberLoginResult") //로그인 성공 후 전송할 url	
+			.failureUrl("/member/loginFail?error") //로그인 실패 메세지 띄워주기
 			.permitAll()
-			.and();
+			.and()
+		.logout()
+			.logoutUrl("/member/logout") //로그아웃
+			.logoutSuccessUrl("/") //로그아웃 성공시 index로 이동
+			.invalidateHttpSession(true)
+			.deleteCookies("JSESSIONID") //쿠키에 저장된 정보 삭제해줌
+			.permitAll()
+			;
 	}
+			
 	
 }
