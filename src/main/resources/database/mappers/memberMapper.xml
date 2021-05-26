@@ -6,26 +6,27 @@
 <mapper namespace="com.hm.j1.member.MemberMapper">
 
 	<insert id="memberJoin" parameterType="MemberVO">
-		insert into member values (#{userName}, #{password}, #{name}, #{email}, #{phone}, #{enabled})
+		insert into member (username, password, name, email, phone, enabled) 
+		values (#{username}, #{password}, #{name}, #{email}, #{phone}, #{enabled})
 	</insert>
 	
 	<insert id="setMemberRole" parameterType="java.util.Map">
-		insert into member_role (userName, id) values (#{userName}, (select id from role where roleName=#{roleName}))
+		insert into member_role (username, id) values (#{username}, (select id from role where roleName=#{roleName}))
 	</insert>
 		
 	<insert id="memberJoinFile" parameterType="MemberFileVO">
-		insert into memberFiles (userName, fileName, oriName) values(#{userName}, #{fileName}, #{oriName})
+		insert into memberFiles (username, fileName, oriName) values(#{username}, #{fileName}, #{oriName})
 	</insert>
 	
 	<select id="memberLogin" resultType="MemberVO" parameterType="MemberVO" resultMap="getLoginResult">
 		SELECT M.*, R.* FROM member M LEFT JOIN member_role MR 
-		ON M.userName = MR.userName inner join role R 
+		ON M.username = MR.username left join role R 
 		ON MR.id = R.id
-		WHERE M.userName=#{userName}
+		WHERE M.username=#{username}
 	</select>
 	
 	<resultMap type="MemberVO" id="getLoginResult">
-		<id column="userName" property="userName"></id>
+		<id column="username" property="username"></id>
 		<result column="password" property="password"/>
 		<result column="name" property="name"/>
 		<result column="email" property="email"/>
@@ -38,7 +39,7 @@
 	</resultMap>
 	
 	<select id="getUsertName" parameterType="MemberVO" resultType="MemberVO">
-		select * from member where userName=#{userName}
+		select * from member where username=#{username}
 	</select>
 	
 </mapper>

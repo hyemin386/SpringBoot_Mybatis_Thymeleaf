@@ -1,5 +1,8 @@
 package com.hm.j1.member;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,9 +32,10 @@ public class MemberService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberVO memberVO = new MemberVO();
-		memberVO.setUserName(username);
+		System.out.println("userName: "+username);
+		memberVO.setUsername(username);
 		memberVO = memberMapper.memberLogin(memberVO);
-		
+		System.out.println("MemberVO: "+memberVO);
 		return memberVO;
 	}
 	
@@ -55,13 +59,14 @@ public class MemberService implements UserDetailsService {
 		//UserName 중복 여부 검증
 		MemberVO checkMember = memberMapper.getUsertName(memberVO);
 		if(checkMember != null) {
-			errors.rejectValue("userName", "member.id.equal");
+			errors.rejectValue("username", "member.id.equal");
 			result = true;
 		}
 		
 		return result;
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
 	public int memberJoin(MemberVO memberVO, MultipartFile multipartFile) throws Exception {
 		//0. 사전작업 (패스워드 암호화 및 사용자계정 활성화)
 		//패스워드 암호화
@@ -71,6 +76,12 @@ public class MemberService implements UserDetailsService {
 		
 		//1. Member 테이블에 저장
 		int result = memberMapper.memberJoin(memberVO);
+		//1-1. Role 테이블에 저장
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("username",memberVO.getUsername());
+		map.put("roleName", "ROLE_MEMBER");
+		result = memberMapper.setMemberRole(map);
+		
 		//2. HDD에 저장
 		String filePath= "upload/member/";
 		if(multipartFile.getSize() != 0) {

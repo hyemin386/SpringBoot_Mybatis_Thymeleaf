@@ -19,7 +19,7 @@ import lombok.Data;
 @Data
 public class MemberVO implements UserDetails {
 
-	private String userName;
+	private String username;
 	private String password1; //pw 입력
 	
 	@Length(min=0, max=6)
@@ -52,33 +52,27 @@ public class MemberVO implements UserDetails {
 	}
 
 	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return this.enabled;
 	}
 	
 }
