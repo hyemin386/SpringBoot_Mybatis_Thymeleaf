@@ -76,7 +76,7 @@ public class NoticeController {
 		String path ="redirect:/member/login"; //admin이 아니라면 로그인 창으로
 		if(obj instanceof MemberVO) { // if(obj != null)
 			memberVO = (MemberVO)obj;
-			if(memberVO.getUserName().equals("admin")) {
+			if(memberVO.getUsername().equals("admin")) {
 				path ="board/form"; //admin이라면 form으로 
 			}
 		}

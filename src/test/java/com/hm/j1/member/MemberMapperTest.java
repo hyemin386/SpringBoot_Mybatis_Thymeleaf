@@ -18,7 +18,7 @@ class MemberMapperTest {
 	//@Test
 	void test() throws Exception{
 		MemberVO memberVO = new MemberVO();
-		memberVO.setUserName("id1");
+		memberVO.setUsername("id1");
 		memberVO.setPassword("pw1");
 		memberVO.setName("id1");
 		memberVO.setPhone("01012341234");
@@ -40,7 +40,7 @@ class MemberMapperTest {
 	@Test
 	void getMemberLoginTest() throws Exception {
 		MemberVO memberVO = new MemberVO();
-		memberVO.setUserName("id1");
+		memberVO.setUsername("id1");
 		
 		memberVO = memberMapper.memberLogin(memberVO);
 		

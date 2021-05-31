@@ -26,6 +26,11 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@GetMapping("error")
+	public String error() {
+		return "error/error";
+	}
+	
 	//회원가입
 	@GetMapping("join")      //model에 memberVO객체를 넣는것이랑 똑같은 역할
 	public String memberJoin(@ModelAttribute MemberVO memberVO) throws Exception {
